@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <!-- Use the Bootstrap style page -->
+    <link href="/lib/css/bootstrap.css" rel="stylesheet" /> 
+</head>
+<body>
+    <!-- Boostrap page styling -->
+    <div class="bg-dark text-white p-2">
+        <span class="navbar-brand ml-2">BOOKSTORE</span>
+    </div>
+    <div class="row m-1 p-1">
+        <div id="categories" class="col-3">
+            Here is some information about the books available.
+        </div>
+        <div class="col-9">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
