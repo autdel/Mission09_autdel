@@ -35,6 +35,13 @@ namespace Mission09_autdel
             });
 
             services.AddScoped<IBookstoreRepository, EFBookstoreRepository>();
+
+            // Allow use of razor pages
+            services.AddRazorPages();
+
+            // Allow sessions
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,12 +53,25 @@ namespace Mission09_autdel
             }
 
             app.UseStaticFiles(); // Corresponds to wwwroot folder
-
+            app.UseSession(); // Use a session
             app.UseRouting();
 
+            // Different endpoints in the correct order for routing
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("categorypage", "{category}/Page{pageNum}", new { Controller = "Home", action = "Index" });
+
+                endpoints.MapControllerRoute(
+                    name: "Paging",
+                    pattern: "Page{pageNum}",
+                    defaults: new { Controller = "Home", action = "Index", pageNum = 1 });
+
+                endpoints.MapControllerRoute("category", "category", new { Controller = "Home", action = "Index", pageNum = 1 });
+
                 endpoints.MapDefaultControllerRoute();
+
+                // Used to allow razor pages
+                endpoints.MapRazorPages();
             });
         }
     }

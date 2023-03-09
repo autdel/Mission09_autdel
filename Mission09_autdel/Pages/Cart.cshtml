@@ -1,0 +1,41 @@
+﻿@page
+@model Mission09_autdel.Pages.CartModel
+@{
+}
+
+<!-- New bootstrap class to highlight the page title -->
+<h2 class="mark">Your Cart</h2>
+
+<!-- New bootstrap: table-hover class to highlight the table row you are on -->
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <!-- Cart model pulled in -->
+    <tbody>
+        @foreach (var i in Model.cart.Items)
+        {
+            <tr>
+                <td>@i.Book.Title</td>
+                <td>@i.Quantity</td>
+                <td>@i.Book.Price</td>
+                <td>@(i.Quantity * i.Book.Price)</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Total:</td>
+            <td>@Model.cart.CalculateTotal().ToString("c")</td>
+        </tr>
+    </tfoot>
+</table>
+<!-- Button to return to page before -->
+<div>
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Continue Shopping</a>
+</div>
